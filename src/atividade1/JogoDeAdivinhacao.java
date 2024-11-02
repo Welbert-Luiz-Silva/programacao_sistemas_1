@@ -22,9 +22,9 @@ public class JogoDeAdivinhacao {
 		while (!intervaloValido) {
 			// Tratamento de exceção para valores válidos
 			try {
-				System.out.print("Digite o valor mínimo do intervalo: ");
+				System.out.println("Digite o valor mínimo do intervalo: ");
 				min = scanner.nextInt();
-				System.out.print("Digite o valor máximo do intervalo: ");
+				System.out.println("Digite o valor máximo do intervalo: ");
 				max = scanner.nextInt();
 
 				if (min >= max) {
@@ -42,7 +42,7 @@ public class JogoDeAdivinhacao {
 		int numeroSecreto = random.nextInt(max - min + 1) + min;
 		int tentativas = 0;
 		boolean acertou = false;
-		
+
 		System.out.println("_______________________________________");
 		System.out.println("Estou pensando em um número entre " + min + " e " + max + ".");
 		System.out.println("_______________________________________");
@@ -68,8 +68,8 @@ public class JogoDeAdivinhacao {
 					System.out.println("O número é maior.");
 				} else if (tentativa > numeroSecreto) {
 					System.out.println("O número é menor.");
-					
-				// Resultado do jogo
+
+					// Resultado do jogo
 				} else {
 					if (tentativas == 1) {
 						System.out.println("_______________________________________");
