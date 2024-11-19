@@ -4,34 +4,29 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class JogoDaVelha {
-
-	// Tabuleiro do jogo 3x3
+	// MATRIZ 3X3
 	private static char[][] tabuleiro = new char[3][3];
-
-	// Definindo quem é o jogador da vez
+	// VARIÁVEL QUE IDENTIFICA O JOGADOR
 	private static char jogadorAtual = 'X';
 
+	// FUNÇAO PRINCIPAL
 	public static void main(String[] args) {
-
-		// Cabeçalho do programa
+		// CABEÇALHO DO PROGRAMA
 		System.out.println("____________________________________________________");
 		System.out.println("MAPA – MATERIAL DE AVALIAÇÃO PRÁTICA DA APRENDIZAGEM");
 		System.out.println();
 		System.out.println(" --------------- JOGO DA VELHA ---------------------");
 		System.out.println("Desenvolvido por: WELBERT LUIZ SILVA");
 		System.out.println("RA: 24513802-5");
-
-		// Inicializa o tabuleiro com espaços vazios ('-')
+		// PREENCHE O TABULEIRO COM ESPAÇOS VAZIOS ('-')
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				tabuleiro[i][j] = '-';
 			}
 		}
-
-		// Loop principal do jogo
 		Scanner scanner = new Scanner(System.in);
 		while (true) {
-			// Exibe o tabuleiro com bordas e números de linha e coluna
+			// EXIBE O TABULEIRO COM BORDAS E NÚMEROS DE LINHA E COLUNA
 			System.out.println("____________________________________________________");
 			System.out.println("Tabuleiro do Jogo");
 			System.out.println();
@@ -47,8 +42,7 @@ public class JogoDaVelha {
 			System.out.println(" -------");
 			System.out.println("  0 1 2 ");
 			System.out.println("____________________________________________________");
-
-			// Solicita a jogada do jogador
+			// SOLICITA JOGADA
 			int linha, coluna;
 			while (true) {
 				try {
@@ -57,88 +51,76 @@ public class JogoDaVelha {
 					linha = scanner.nextInt();
 					System.out.print("Escolha a coluna (0-2): ");
 					coluna = scanner.nextInt();
-
-					// Valida a jogada
+					// VALIDA JOGADA
 					if (linha >= 0 && linha < 3 && coluna >= 0 && coluna < 3 && tabuleiro[linha][coluna] == '-') {
 						tabuleiro[linha][coluna] = jogadorAtual;
 						break;
 					} else {
 						System.out.println("Jogada inválida, insira números inteiros entre 0 e 2.");
 					}
-
-				// Captura o erro caso o usuário insira algo que não seja um número
+					// CAPTURA O ERRO
 				} catch (InputMismatchException e) {
 					System.out.println("Entrada inválida! Por favor, insira números inteiros entre 0 e 2.");
-					scanner.next(); 
+					scanner.next();
 				}
-
 			}
-
-			// Verifica se alguém venceu
+			// CHAMA A FUNÇÃO PARA VERIFICAR VITÓRIA E IMPRIME O RESULTADO
 			if (verificarVitoria() == true) {
 				System.out.println("Jogador - " + jogadorAtual + " - VENCEU!");
 				break;
 			}
-
-			// Verifica se houve empate
+			// CHAMA A FUNÇÃO PARA VERIFICAR EMPATE E IMPRIME O RESULTADO
 			if (verificarEmpate() == true) {
 				System.out.println("Empate! O jogo terminou.");
 				break;
 			}
-
-			// Alternar Jogador
+			// ALTERA OS JOGADOR
 			if (jogadorAtual == 'X') {
 				jogadorAtual = 'O';
 			} else {
 				jogadorAtual = 'X';
 			}
 		}
-
-		// Pergunta se o jogador quer jogar novamente
+		// VERIFICA SE QUER JOGAR NOVAMENTE
 		System.out.println("Deseja jogar novamente? (S/N)");
 		String resposta = scanner.next();
-
-		// Se a resposta não for S nem N, pede para o jogador tentar novamente
 		while (!resposta.equalsIgnoreCase("S") && !resposta.equalsIgnoreCase("N")) {
 			System.out.println("Opção Inválida. Por favor, escolha 'S' para sim ou 'N' para não.");
 			resposta = scanner.next();
 		}
-		
-		// Reinicia o jogo
 		if (resposta.equalsIgnoreCase("S")) {
-			main(args); 
+			main(args);
 		} else {
 			System.out.println("Obrigado por jogar!");
 		}
 		scanner.close();
 	}
 
-	// Verifica se há um vencedor
+	// FUNÇAO PARA VERIFICAR SE HÁ VENCEDOR
 	public static boolean verificarVitoria() {
-		// Verifica as linhas
+		// VERIFICAÇÃO DAS LINHAS
 		for (int i = 0; i < 3; i++) {
 			if (tabuleiro[i][0] == jogadorAtual && tabuleiro[i][1] == jogadorAtual && tabuleiro[i][2] == jogadorAtual) {
 				return true;
 			}
 		}
-		// Verifica as colunas
+		// VERIFICAÇÃO DAS COLUNAS
 		for (int i = 0; i < 3; i++) {
 			if (tabuleiro[0][i] == jogadorAtual && tabuleiro[1][i] == jogadorAtual && tabuleiro[2][i] == jogadorAtual) {
 				return true;
 			}
 		}
-		// Verifica as diagonais
+		// VERIFICAÇAO DAS DIAGONAIS
 		if (tabuleiro[0][0] == jogadorAtual && tabuleiro[1][1] == jogadorAtual && tabuleiro[2][2] == jogadorAtual) {
 			return true;
 		}
 		if (tabuleiro[0][2] == jogadorAtual && tabuleiro[1][1] == jogadorAtual && tabuleiro[2][0] == jogadorAtual) {
 			return true;
 		}
-
 		return false;
 	}
 
-	// Verifica se há empate
+	// FUNÇAO PARA VERIFICAR SE HÁ EMPATE
 	public static boolean verificarEmpate() {
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
